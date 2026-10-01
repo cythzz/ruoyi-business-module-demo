@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.framework.aspectj.lang.annotation.Log;
+import com.ruoyi.framework.aspectj.lang.annotation.RateLimiter;
 import com.ruoyi.framework.aspectj.lang.enums.BusinessType;
+import com.ruoyi.framework.interceptor.annotation.RepeatSubmit;
 import com.ruoyi.framework.web.controller.BaseController;
 import com.ruoyi.framework.web.domain.AjaxResult;
 import com.ruoyi.framework.web.page.TableDataInfo;
@@ -32,6 +34,7 @@ public class CustomerFollowUpController extends BaseController
     }
 
     @PreAuthorize("@ss.hasPermi('business:followup:list')")
+    @RateLimiter(time = 1, count = 20)
     @GetMapping("/list")
     public TableDataInfo list(CustomerFollowUp followUp)
     {
@@ -49,6 +52,7 @@ public class CustomerFollowUpController extends BaseController
 
     @PreAuthorize("@ss.hasPermi('business:followup:add')")
     @Log(title = "客户回访", businessType = BusinessType.INSERT)
+    @RepeatSubmit(interval = 5000, message = "回访记录正在提交，请勿重复操作")
     @PostMapping
     public AjaxResult add(@Validated @RequestBody CustomerFollowUp followUp)
     {
@@ -58,6 +62,7 @@ public class CustomerFollowUpController extends BaseController
 
     @PreAuthorize("@ss.hasPermi('business:followup:edit')")
     @Log(title = "客户回访", businessType = BusinessType.UPDATE)
+    @RepeatSubmit(interval = 5000, message = "回访记录正在更新，请勿重复操作")
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody CustomerFollowUp followUp)
     {
@@ -67,6 +72,7 @@ public class CustomerFollowUpController extends BaseController
 
     @PreAuthorize("@ss.hasPermi('business:followup:remove')")
     @Log(title = "客户回访", businessType = BusinessType.DELETE)
+    @RepeatSubmit(interval = 5000, message = "删除请求正在处理，请勿重复操作")
     @DeleteMapping("/{followUpIds}")
     public AjaxResult remove(@PathVariable Long[] followUpIds)
     {

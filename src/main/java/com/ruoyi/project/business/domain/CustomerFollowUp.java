@@ -5,6 +5,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ruoyi.framework.web.domain.BaseEntity;
+import com.ruoyi.framework.aspectj.lang.annotation.Sensitive;
+import com.ruoyi.framework.aspectj.lang.enums.DesensitizedType;
 
 /** 客户回访记录 business_customer_follow_up。 */
 public class CustomerFollowUp extends BaseEntity
@@ -13,6 +15,7 @@ public class CustomerFollowUp extends BaseEntity
 
     private Long followUpId;
     private String customerName;
+    @Sensitive(desensitizedType = DesensitizedType.PHONE)
     private String mobile;
     private String orderNo;
     private String status;
