@@ -3,14 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ruoyi</groupId>
-    <artifactId>ruoyi</artifactId>
+    <groupId>com.cythzz</groupId>
+    <artifactId>ruoyi-business-module-demo</artifactId>
     <version>3.9.2</version>
     <packaging>jar</packaging>
 
-    <name>ruoyi</name>
+    <name>ruoyi-business-module-demo</name>
     <url>http://www.ruoyi.vip</url>
-    <description>若依管理系统</description>
+    <description>基于 RuoYi-Vue-fast 的客户回访业务模块扩展示例</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
